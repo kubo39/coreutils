@@ -8,6 +8,7 @@ TARGET_DIR = bin
 all: false \
 	logname \
 	pwd \
+	sleep \
 	true
 
 false:
@@ -18,6 +19,9 @@ logname:
 
 pwd:
 	$(DMD) -of=$(TARGET_DIR)/$@ $(SRC_DIR)/pwd.d
+
+sleep:
+	$(DMD) -of=$(TARGET_DIR)/$@ $(SRC_DIR)/sleep.d
 
 true:
 	$(DMD) -of=$(TARGET_DIR)/$@ $(SRC_DIR)/true.d
