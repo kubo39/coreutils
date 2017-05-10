@@ -19,11 +19,10 @@ void main(string[] args)
         writeln(`
 pwd %s
 
-USAGE:
-  pwd [OPTION] ..
-OPTION:
-  -h: display this help and exit.
-  -v: output version information and exit.
+Usage: pwd [OPTION]
+
+  --help     display this help and exit.
+  --version  output version information and exit.
 `.format(VERSION));
     } else if (versions) {
         VERSION.writeln;

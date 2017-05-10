@@ -32,11 +32,12 @@ void main(string[] args)
         writeln(`
 logname %s
 
-USAGE:
-  logname [OPTION] ..
-OPTION:
-  -h: display this help and exit.
-  -v: output version information and exit.
+Usage: logname [OPTION]
+Print the name of the current user.
+
+  --help       display this help and exit.
+  --version  output version information and exit.
+
 `.format(VERSION));
     } else if (versions) {
         VERSION.writeln;
