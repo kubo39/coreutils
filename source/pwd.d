@@ -5,8 +5,6 @@ import std.stdio;
 
 enum VERSION = "0.0.1";
 
-immutable ulong PATHNAME_SIZE = 512;
-
 void main(string[] args)
 {
     bool help, versions;
