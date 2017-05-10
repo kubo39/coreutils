@@ -1,5 +1,6 @@
 import core.sys.posix.unistd : getcwd;
 import core.stdc.stdlib : exit;
+import core.stdc.errno : errno;
 
 import std.format;
 import std.getopt;
@@ -34,8 +35,11 @@ OPTION:
         VERSION.writeln;
     } else {
         char[PATHNAME_SIZE] pathname;
-        getcwd(cast(char*) pathname, PATHNAME_SIZE);
-        (cast(char*) pathname).fromStringz.writeln;
-        exit(0);
+        if (getcwd(cast(char*) pathname, PATHNAME_SIZE) !is null) {
+            (cast(char*) pathname).fromStringz.writeln;
+            exit(0);
+        } else {
+            exit(errno());
+        }
     }
 }
