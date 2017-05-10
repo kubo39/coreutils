@@ -1,11 +1,7 @@
-import core.sys.posix.unistd : getcwd;
-import core.stdc.stdlib : exit;
-import core.stdc.errno : errno;
-
+import std.file : getcwd;
 import std.format;
 import std.getopt;
 import std.stdio;
-import std.string;
 
 enum VERSION = "0.0.1";
 
@@ -34,12 +30,6 @@ OPTION:
     } else if (versions) {
         VERSION.writeln;
     } else {
-        char[PATHNAME_SIZE] pathname;
-        if (getcwd(cast(char*) pathname, PATHNAME_SIZE) !is null) {
-            (cast(char*) pathname).fromStringz.writeln;
-            exit(0);
-        } else {
-            exit(errno());
-        }
+        writeln(getcwd());
     }
 }
