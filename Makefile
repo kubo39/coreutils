@@ -13,22 +13,22 @@ all: false \
 	whoami
 
 false:
-	$(DMD) -of=$(TARGET_DIR)/$@ $(SRC_DIR)/false.d
+	$(DMD) -of=$(TARGET_DIR)/$@ $(SRC_DIR)/$@.d
 
 logname:
-	$(DMD) -of=$(TARGET_DIR)/$@ $(SRC_DIR)/logname.d
+	$(DMD) -of=$(TARGET_DIR)/$@ $(SRC_DIR)/$@.d
 
 pwd:
-	$(DMD) -of=$(TARGET_DIR)/$@ $(SRC_DIR)/pwd.d
+	$(DMD) -of=$(TARGET_DIR)/$@ $(SRC_DIR)/$@.d
 
 sleep:
-	$(DMD) -of=$(TARGET_DIR)/$@ $(SRC_DIR)/sleep.d
+	$(DMD) -of=$(TARGET_DIR)/$@ $(SRC_DIR)/$@.d
 
 true:
-	$(DMD) -of=$(TARGET_DIR)/$@ $(SRC_DIR)/true.d
+	$(DMD) -of=$(TARGET_DIR)/$@ $(SRC_DIR)/$@.d
 
 whoami:
-	$(DMD) -of=$(TARGET_DIR)/$@ $(SRC_DIR)/whoami.d
+	$(DMD) -of=$(TARGET_DIR)/$@ $(SRC_DIR)/$@.d
 
 clean:
 	$(RM) $(TARGET_DIR)/*
