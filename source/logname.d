@@ -12,7 +12,7 @@ void getUserlogin()
 {
     const login = getlogin();
     if (login is null) {
-        writeln("no login name");
+        stderr.writeln("no login name");
         exit(1);
     }
     writeln(login.fromStringz);
@@ -39,9 +39,12 @@ Print the name of the current user.
   --version  output version information and exit.
 
 `.format(VERSION));
+        exit(0);
     } else if (versions) {
-        VERSION.writeln;
-    } else {
-        getUserlogin();
+        writeln(VERSION);
+        exit(0);
     }
+
+    getUserlogin();
+    exit(0);
 }

@@ -39,13 +39,15 @@ specified by the sum of their values.
   --version  output version information and exit.
 
 `.format(VERSION));
+        exit(0);
     } else if (versions) {
-        VERSION.writeln;
-    } else {
-        auto dur = args.dropOne
-            .map!(a => a.to!int.dur!"seconds"())
-            .fold!((a, b) => a + b)(Duration.zero);
-        Thread.sleep(dur);
+        writeln(VERSION);
         exit(0);
     }
+
+    auto dur = args.dropOne
+        .map!(a => a.to!int.dur!"seconds"())
+        .fold!((a, b) => a + b)(Duration.zero);
+    Thread.sleep(dur);
+    exit(0);
 }
