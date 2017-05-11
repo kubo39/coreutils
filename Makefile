@@ -9,7 +9,8 @@ all: false \
 	logname \
 	pwd \
 	sleep \
-	true
+	true \
+	whoami
 
 false:
 	$(DMD) -of=$(TARGET_DIR)/$@ $(SRC_DIR)/false.d
@@ -25,6 +26,9 @@ sleep:
 
 true:
 	$(DMD) -of=$(TARGET_DIR)/$@ $(SRC_DIR)/true.d
+
+whoami:
+	$(DMD) -of=$(TARGET_DIR)/$@ $(SRC_DIR)/whoami.d
 
 clean:
 	$(RM) $(TARGET_DIR)/*
