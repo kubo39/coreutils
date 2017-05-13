@@ -45,7 +45,6 @@ Print the number of cores available to the current process.
     if (all) {
         auto n = environment.get("OMP_NUM_THREADS");
         if (n !is null) {
-            n.writeln;
             ignore += n.to!ulong;
         }
     }
