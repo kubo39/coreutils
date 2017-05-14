@@ -10,6 +10,7 @@ all: false \
 	nproc \
 	pwd \
 	sleep \
+	timeout \
 	true \
 	whoami
 
@@ -26,6 +27,9 @@ pwd:
 	$(DMD) -of=$(TARGET_DIR)/$@ $(SRC_DIR)/$@.d
 
 sleep:
+	$(DMD) -of=$(TARGET_DIR)/$@ $(SRC_DIR)/$@.d
+
+timeout:
 	$(DMD) -of=$(TARGET_DIR)/$@ $(SRC_DIR)/$@.d
 
 true:
