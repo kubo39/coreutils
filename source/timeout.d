@@ -59,7 +59,7 @@ Start COMMAND, and kill it if still running after DURATION.
 int timeout(Duration duration, string[] cmd, bool foreground)
 {
     int status;
-    writeln(foreground);
+
     if (!foreground) {
         setpgid(0, 0);
     }
