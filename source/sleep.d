@@ -31,7 +31,7 @@ Usage: sleep NUMBER[SUFFIX]...
 
 Pause for NUMBER seconds.
 
-  --help       display this help and exit.
+  --help     display this help and exit.
   --version  output version information and exit.
 
 `.format(VERSION));
