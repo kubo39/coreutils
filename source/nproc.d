@@ -7,6 +7,12 @@ import std.process : environment;
 import std.stdio;
 import std.string : fromStringz;
 
+version(linux)
+{
+    import core.bitop : popcnt;
+    import core.sys.linux.sched : sched_getaffinity, cpu_set_t;
+}
+
 enum VERSION = "0.0.1";
 
 void main(string[] args)
@@ -49,7 +55,21 @@ Print the number of cores available to the current process.
         }
     }
 
-    auto cores = cast() totalCPUs;
+    ulong cores = 0;
+
+    version(linux) {
+        cpu_set_t cpu;
+        if (sched_getaffinity(0, cpu.sizeof, &cpu) == 0) {
+            cores = popcnt( *cast(ulong*) &cpu);
+        }
+        else {
+            cores = cast() totalCPUs;
+        }
+    }
+    else {
+        cores = cast() totalCPUs;
+    }
+
     if (cores <= ignore)
         cores = 1;
     else
