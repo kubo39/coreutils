@@ -29,13 +29,9 @@ Usage: sleep NUMBER[SUFFIX]...
     or:    sleep OPTION
 
 
-Pause for NUMBER seconds.  SUFFIX may be 's' for seconds (the default),
-'m' for minutes, 'h' for hours or 'd' for days.  Unlike most implementations
-that require NUMBER be an integer, here NUMBER may be an arbitrary floating
-point number.  Given two or more arguments, pause for the amount of time
-specified by the sum of their values.
+Pause for NUMBER seconds.
 
-  --help       display this help and exit.
+  --help     display this help and exit.
   --version  output version information and exit.
 
 `.format(VERSION));
