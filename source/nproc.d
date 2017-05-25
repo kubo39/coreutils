@@ -60,7 +60,7 @@ Print the number of cores available to the current process.
     version(linux) {
         cpu_set_t cpu;
         if (sched_getaffinity(0, cpu.sizeof, &cpu) == 0) {
-            foreach (i; cpu.__bits)
+            foreach (i; cpu.__bits[0 .. (cpu.sizeof / ulong.sizeof)])
                 cores += popcnt(i);
         }
         else {
