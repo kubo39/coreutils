@@ -1,3 +1,4 @@
+import core.sys.posix.unistd : sysconf, _SC_NPROCESSORS_CONF;
 import core.stdc.stdlib : exit;
 import std.conv : to;
 import std.format;
@@ -55,26 +56,39 @@ Print the number of cores available to the current process.
         }
     }
 
-    ulong cores = 0;
-
-    version(linux) {
-        cpu_set_t cpu;
-        if (sched_getaffinity(0, cpu.sizeof, &cpu) == 0) {
-            foreach (i; cpu.__bits[0 .. (cpu.sizeof / ulong.sizeof)])
-                cores += popcnt(i);
-        }
-        else {
-            cores = cast() totalCPUs;
-        }
-    }
-    else {
-        cores = cast() totalCPUs;
-    }
+    auto cores = getCPUs(all);
 
     if (cores <= ignore)
         cores = 1;
     else
         cores -= ignore;
+
     writeln(cores);
     exit(0);
+}
+
+ulong getCPUs(bool all)
+{
+    ulong cores = 0;
+
+    if (all) {
+        cores = sysconf(_SC_NPROCESSORS_CONF);
+        if (cores == 1)
+            cores = cast() totalCPUs;
+    }
+    else {
+        version(linux) {
+            cpu_set_t cpu;
+            if (sched_getaffinity(0, cpu.sizeof, &cpu) == 0)
+                foreach (i; cpu.__bits[0 .. (cpu.sizeof / ulong.sizeof)])
+                    cores += popcnt(i);
+            else {
+                cores = cast() totalCPUs;
+            }
+        }
+        else {
+            cores = cast() totalCPUs;
+        }
+    }
+    return cores;
 }
