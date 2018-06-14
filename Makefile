@@ -6,6 +6,7 @@ SRC_DIR = source
 TARGET_DIR = bin
 
 all: false \
+	hostid \
 	logname \
 	nproc \
 	pwd \
@@ -15,6 +16,9 @@ all: false \
 	whoami
 
 false:
+	$(DMD) -of=$(TARGET_DIR)/$@ $(SRC_DIR)/$@.d
+
+hostid:
 	$(DMD) -of=$(TARGET_DIR)/$@ $(SRC_DIR)/$@.d
 
 logname:
