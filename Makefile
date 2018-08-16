@@ -5,7 +5,8 @@ DMD = dmd
 SRC_DIR = source
 TARGET_DIR = bin
 
-all: false \
+all: cp \
+	false \
 	hostid \
 	logname \
 	nproc \
@@ -14,6 +15,9 @@ all: false \
 	timeout \
 	true \
 	whoami
+
+cp:
+	$(DMD) -of=$(TARGET_DIR)/$@ $(SRC_DIR)/$@.d
 
 false:
 	$(DMD) -of=$(TARGET_DIR)/$@ $(SRC_DIR)/$@.d
