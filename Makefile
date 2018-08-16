@@ -8,6 +8,7 @@ TARGET_DIR = bin
 all: false \
 	hostid \
 	logname \
+	mkdir \
 	nproc \
 	pwd \
 	sleep \
@@ -22,6 +23,9 @@ hostid:
 	$(DMD) -of=$(TARGET_DIR)/$@ $(SRC_DIR)/$@.d
 
 logname:
+	$(DMD) -of=$(TARGET_DIR)/$@ $(SRC_DIR)/$@.d
+
+mkdir:
 	$(DMD) -of=$(TARGET_DIR)/$@ $(SRC_DIR)/$@.d
 
 nproc:
