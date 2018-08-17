@@ -6,7 +6,7 @@ import std.stdio;
 
 enum VERSION = "0.0.1";
 
-int mkdir(string path, bool recurse, ushort mode)
+int mkdir(string path, bool recurse, ushort mode, bool verbose)
 {
     import std.file;
     try
@@ -16,6 +16,9 @@ int mkdir(string path, bool recurse, ushort mode)
         else
             mkdirRecurse(path);
         path.setAttributes(mode);
+
+        if (verbose)
+            writefln("mkdir: created directory '%s'", path);
         return 0;
     }
     catch (FileException e)
@@ -26,13 +29,15 @@ int mkdir(string path, bool recurse, ushort mode)
 
 void main(string[] args)
 {
-    bool help, parents, versions;
+    bool help, parents, versions, verbose;
     string mode = "755";
     args.getopt(
+        std.getopt.config.caseSensitive,
         "h|help", &help,
-        "v|version", &versions,
+        "V|version", &versions,
         "p|parents", &parents,
         "m|mode", &mode,
+        "v|verbose", &verbose,
         );
     ushort attr = parse!ushort(mode, 8);
 
@@ -67,6 +72,6 @@ Create the DIRECTORY(ies), if they do not already exist.
     }
     int status;
     foreach (path; args[1..$])
-        status |= mkdir(path, parents, attr);
+        status |= mkdir(path, parents, attr, verbose);
     exit(status);
 }
