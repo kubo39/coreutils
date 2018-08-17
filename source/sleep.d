@@ -15,13 +15,10 @@ void main(string[] args)
 {
     bool help, versions;
 
-    getopt(
-           args,
-           "h|help", &help,
-           "v|version", &versions,
-           );
+    getopt(args, "h|help", &help, "v|version", &versions);
 
-    if (help) {
+    if (help)
+    {
         writeln(`
 sleep %s
 
@@ -36,13 +33,16 @@ Pause for NUMBER seconds.
 
 `.format(VERSION));
         exit(0);
-    } else if (versions) {
+    }
+    else if (versions)
+    {
         writeln(VERSION);
         exit(0);
     }
 
     auto dur = args.dropOne
-        .map!(a => a.to!int.dur!"seconds"())
+        .map!(a => a.to!int
+                .dur!"seconds"())
         .fold!((a, b) => a + b)(Duration.zero);
     Thread.sleep(dur);
     exit(0);

@@ -19,14 +19,10 @@ void main(string[] args)
 {
     bool help, versions, foreground;
 
-    getopt(
-           args,
-           "foreground", &foreground,
-           "h|help",  &help,
-           "v|version", &versions,
-           );
+    getopt(args, "foreground", &foreground, "h|help", &help, "v|version", &versions);
 
-    if (help) {
+    if (help)
+    {
         writeln(r"timeout %s
 Usage: timeout [OPTION] DURATION COMMAND [ARG]...
 
@@ -38,18 +34,22 @@ Start COMMAND, and kill it if still running after DURATION.
 
 ".format(VERSION));
         exit(0);
-    } else if (versions) {
+    }
+    else if (versions)
+    {
         writeln(VERSION);
         exit(0);
     }
 
-    if (args.length < 3) {
+    if (args.length < 3)
+    {
         stderr.writeln("missing an argument");
         stderr.writeln("for help, try timeout --help");
         exit(1);
     }
 
-    Duration duration = args[1].to!ulong.dur!"seconds";
+    Duration duration = args[1].to!ulong
+        .dur!"seconds";
     string[] cmd = args[2 .. $];
 
     int status = timeout(duration, cmd, foreground);
@@ -60,7 +60,8 @@ int timeout(Duration duration, string[] cmd, bool foreground)
 {
     int status;
 
-    if (!foreground) {
+    if (!foreground)
+    {
         setpgid(0, 0);
     }
 
@@ -72,7 +73,8 @@ int timeout(Duration duration, string[] cmd, bool foreground)
     void spawnedFunc()
     {
         status = wait(pid);
-        synchronized (m) {
+        synchronized (m)
+        {
             cond.notify;
         }
     }
@@ -80,15 +82,19 @@ int timeout(Duration duration, string[] cmd, bool foreground)
     auto thread = new Thread(&spawnedFunc).start;
     auto target = MonoTime.currTime + duration;
 
-    synchronized (m) {
+    synchronized (m)
+    {
         MonoTime now;
-        do {
+        do
+        {
             now = MonoTime.currTime;
 
-            if (target <= now) {
+            if (target <= now)
+            {
                 _Exit(124);
             }
-        } while (!cond.wait(target - now));
+        }
+        while (!cond.wait(target - now));
     }
 
     return status;

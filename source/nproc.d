@@ -8,7 +8,7 @@ import std.process : environment;
 import std.stdio;
 import std.string : fromStringz;
 
-version(linux)
+version (linux)
 {
     import core.bitop : popcnt;
     import core.sys.linux.sched : sched_getaffinity, cpu_set_t;
@@ -21,15 +21,10 @@ void main(string[] args)
     bool help, versions, all;
     ulong ignore;
 
-    getopt(
-           args,
-           "h|help", &help,
-           "v|version", &versions,
-           "ignore", &ignore,
-           "all", &all,
-           );
+    getopt(args, "h|help", &help, "v|version", &versions, "ignore", &ignore, "all", &all);
 
-    if (help) {
+    if (help)
+    {
         writeln(`
 nproc %s
 
@@ -44,14 +39,18 @@ Print the number of cores available to the current process.
 
 `.format(VERSION));
         exit(0);
-    } else if (versions) {
+    }
+    else if (versions)
+    {
         writeln(VERSION);
         exit(0);
     }
 
-    if (all) {
+    if (all)
+    {
         auto n = environment.get("OMP_NUM_THREADS");
-        if (n !is null) {
+        if (n !is null)
+        {
             ignore += n.to!ulong;
         }
     }
@@ -71,22 +70,25 @@ ulong getCPUs(bool all)
 {
     ulong cores = 0;
 
-    if (all) {
+    if (all)
+    {
         cores = sysconf(_SC_NPROCESSORS_CONF);
         if (cores == 1)
             cores = cast() totalCPUs;
     }
-    else {
-        version(linux) {
+    else
+    {
+        version (linux)
+        {
             cpu_set_t cpu;
             if (sched_getaffinity(0, cpu.sizeof, &cpu) == 0)
                 foreach (i; cpu.__bits[0 .. (cpu.sizeof / ulong.sizeof)])
                     cores += popcnt(i);
-            else {
+            else
                 cores = cast() totalCPUs;
-            }
         }
-        else {
+        else
+        {
             cores = cast() totalCPUs;
         }
     }

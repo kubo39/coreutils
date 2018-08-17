@@ -10,13 +10,10 @@ void main(string[] args)
 {
     bool help, versions;
 
-    getopt(
-           args,
-           "h|help", &help,
-           "v|version", &versions,
-           );
+    getopt(args, "h|help", &help, "v|version", &versions);
 
-    if (help) {
+    if (help)
+    {
         writeln(`
 pwd %s
 
@@ -26,7 +23,9 @@ Usage: pwd [OPTION]
   --version  output version information and exit.
 `.format(VERSION));
         exit(0);
-    } else if (versions) {
+    }
+    else if (versions)
+    {
         writeln(VERSION);
         exit(0);
     }

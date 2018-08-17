@@ -9,6 +9,7 @@ enum VERSION = "0.0.1";
 int mkdir(string path, bool recurse, ushort mode, bool verbose)
 {
     import std.file;
+
     try
     {
         if (!recurse)
@@ -31,14 +32,8 @@ void main(string[] args)
 {
     bool help, parents, versions, verbose;
     string mode = "755";
-    args.getopt(
-        std.getopt.config.caseSensitive,
-        "h|help", &help,
-        "V|version", &versions,
-        "p|parents", &parents,
-        "m|mode", &mode,
-        "v|verbose", &verbose,
-        );
+    args.getopt(std.getopt.config.caseSensitive, "h|help", &help, "V|version",
+            &versions, "p|parents", &parents, "m|mode", &mode, "v|verbose", &verbose,);
     ushort attr = parse!ushort(mode, 8);
 
     if (help)
@@ -71,7 +66,7 @@ Create the DIRECTORY(ies), if they do not already exist.
         exit(1);
     }
     int status;
-    foreach (path; args[1..$])
+    foreach (path; args[1 .. $])
         status |= mkdir(path, parents, attr, verbose);
     exit(status);
 }

@@ -11,7 +11,8 @@ enum VERSION = "0.0.1";
 void getUserlogin()
 {
     const login = getlogin();
-    if (login is null) {
+    if (login is null)
+    {
         stderr.writeln("no login name");
         exit(1);
     }
@@ -22,13 +23,10 @@ void main(string[] args)
 {
     bool help, versions;
 
-    getopt(
-           args,
-           "h|help", &help,
-           "v|version", &versions,
-           );
+    getopt(args, "h|help", &help, "v|version", &versions);
 
-    if (help) {
+    if (help)
+    {
         writeln(`
 logname %s
 
@@ -40,7 +38,9 @@ Print the name of the current user.
 
 `.format(VERSION));
         exit(0);
-    } else if (versions) {
+    }
+    else if (versions)
+    {
         writeln(VERSION);
         exit(0);
     }

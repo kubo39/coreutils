@@ -9,12 +9,10 @@ void main(string[] args)
 {
     bool help, versions;
 
-    args.getopt(
-        "h|help", &help,
-        "v|version", &versions
-        );
+    args.getopt("h|help", &help, "v|version", &versions);
 
-    if (help) {
+    if (help)
+    {
         writeln(`
 hostid %s
 
@@ -27,7 +25,9 @@ Print the numerical identifier for the current host.
 
 `.format(VERSION));
         exit(0);
-    } else if (versions) {
+    }
+    else if (versions)
+    {
         writeln(VERSION);
         exit(0);
     }

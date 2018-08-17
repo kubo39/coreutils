@@ -13,13 +13,10 @@ void main(string[] args)
 {
     bool help, versions;
 
-    getopt(
-           args,
-           "h|help", &help,
-           "v|version", &versions,
-           );
+    getopt(args, "h|help", &help, "v|version", &versions);
 
-    if (help) {
+    if (help)
+    {
         writeln(`
 whoami %s
 
@@ -32,14 +29,17 @@ print effective userid
 
 `.format(VERSION));
         exit(0);
-    } else if (versions) {
+    }
+    else if (versions)
+    {
         writeln(VERSION);
         exit(0);
     }
 
     auto uid = geteuid();
     auto pw = getpwuid(uid);
-    if (pw is null) {
+    if (pw is null)
+    {
         stderr.writefln("No such id: %d", uid);
         exit(1);
     }
