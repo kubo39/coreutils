@@ -18,12 +18,12 @@ enum VERSION = "0.0.1";
 
 void main(string[] args)
 {
-    bool help, versions, all;
+    bool versions, all;
     ulong ignore;
 
-    getopt(args, "h|help", &help, "v|version", &versions, "ignore", &ignore, "all", &all);
+    auto helpInformation = args.getopt("v|version", &versions, "ignore", &ignore, "all", &all);
 
-    if (help)
+    if (helpInformation.helpWanted)
     {
         writeln(`
 nproc %s

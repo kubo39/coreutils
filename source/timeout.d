@@ -17,11 +17,11 @@ enum VERSION = "0.0.1";
 
 void main(string[] args)
 {
-    bool help, versions, foreground;
+    bool versions, foreground;
 
-    getopt(args, "foreground", &foreground, "h|help", &help, "v|version", &versions);
+    auto helpInformation = args.getopt("foreground", &foreground, "v|version", &versions);
 
-    if (help)
+    if (helpInformation.helpWanted)
     {
         writeln(r"timeout %s
 Usage: timeout [OPTION] DURATION COMMAND [ARG]...

@@ -8,11 +8,11 @@ enum VERSION = "0.0.1";
 
 void main(string[] args)
 {
-    bool help, versions;
+    bool versions;
 
-    getopt(args, "h|help", &help, "v|version", &versions);
+    auto helpInformation = args.getopt("v|version", &versions);
 
-    if (help)
+    if (helpInformation.helpWanted)
     {
         writeln(`
 pwd %s

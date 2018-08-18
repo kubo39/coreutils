@@ -7,11 +7,12 @@ enum VERSION = "0.0.1";
 
 void main(string[] args)
 {
-    bool append, help, ignore_interrupts, versions;
-    args.getopt("a|append", &append, "i|ignore_interrupts", &ignore_interrupts,
-                "h|help", &help, "v|version", &versions);
+    bool append, ignore_interrupts, versions;
+    auto helpInformation = args.getopt("a|append", &append,
+                                       "i|ignore_interrupts", &ignore_interrupts,
+                                       "v|version", &versions);
 
-    if (help)
+    if (helpInformation.helpWanted)
     {
         writeln(`
 tee %s
