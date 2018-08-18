@@ -44,6 +44,9 @@ pwd:
 sleep:
 	$(DC) -of=$(TARGET_DIR)/$@ $(SRC_DIR)/$@.d
 
+sync:
+	$(DC) -of=$(TARGET_DIR)/$@ $(SRC_DIR)/$@.d
+
 tee:
 	$(DC) -of=$(TARGET_DIR)/$@ $(SRC_DIR)/$@.d
 
