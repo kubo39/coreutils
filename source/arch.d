@@ -15,7 +15,7 @@ void main(string[] args)
         writeln(`
 arch %s
 
-Usage: arch [OPTION]... [FILE]...
+Usage: arch [OPTION]...
 Print machine architecture.
 
   --help     display this.help and exit
