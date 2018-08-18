@@ -4,7 +4,7 @@ GNU coreutils rewrite in D.
 
 ## Prerequirements
 
-- DMD Compiler
+- D Compiler (DMD or LDC)
 - GNU Make
 
 ## Build
