@@ -16,6 +16,7 @@ all: arch \
 	tee \
 	timeout \
 	true \
+	uname \
 	wc \
 	whoami
 
@@ -50,6 +51,9 @@ timeout:
 	$(DC) -of=$(TARGET_DIR)/$@ $(SRC_DIR)/$@.d
 
 true:
+	$(DC) -of=$(TARGET_DIR)/$@ $(SRC_DIR)/$@.d
+
+uname:
 	$(DC) -of=$(TARGET_DIR)/$@ $(SRC_DIR)/$@.d
 
 wc:
