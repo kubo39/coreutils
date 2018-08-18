@@ -58,8 +58,11 @@ Usage: wc [OPTION]... [FILE]...
 
 int wc(string[] filenames, Settings settings)
 {
+    import std.file : exists, isDir;
     import std.range : walkLength;
     import std.string : split;
+
+    int status = 0;
 
     size_t totalByteCount = 0;
     size_t totalCharCount = 0;
@@ -68,6 +71,19 @@ int wc(string[] filenames, Settings settings)
 
     foreach (filename; filenames)
     {
+        if (!filename.exists)
+        {
+            stderr.writefln("wc: %s: No such file or directory", filename);
+            status |= 1;
+            continue;
+        }
+        else if (filename.isDir)
+        {
+            stderr.writefln("wc: %s: Is a directory", filename);
+            status |= 1;
+            continue;
+        }
+
         size_t byteCount = 0;
         size_t charCount = 0;
         size_t wordCount = 0;
@@ -89,7 +105,8 @@ int wc(string[] filenames, Settings settings)
     if (filenames.length > 1)
         writeStats(totalByteCount, totalCharCount, totalWordCount,
                    totalLineCount, settings, "total");
-    return 0;
+
+    return status;
 }
 
 
