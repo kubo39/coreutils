@@ -15,6 +15,7 @@ all: false \
 	tee \
 	timeout \
 	true \
+	wc \
 	whoami
 
 false:
@@ -45,6 +46,9 @@ timeout:
 	$(DMD) -of=$(TARGET_DIR)/$@ $(SRC_DIR)/$@.d
 
 true:
+	$(DMD) -of=$(TARGET_DIR)/$@ $(SRC_DIR)/$@.d
+
+wc:
 	$(DMD) -of=$(TARGET_DIR)/$@ $(SRC_DIR)/$@.d
 
 whoami:
