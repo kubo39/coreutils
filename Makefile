@@ -5,7 +5,8 @@ DC ?= dmd
 SRC_DIR = source
 TARGET_DIR = bin
 
-all: false \
+all: arch \
+	false \
 	hostid \
 	logname \
 	mkdir \
@@ -17,6 +18,9 @@ all: false \
 	true \
 	wc \
 	whoami
+
+arch:
+	$(DC) -of=$(TARGET_DIR)/$@ $(SRC_DIR)/$@.d
 
 false:
 	$(DC) -of=$(TARGET_DIR)/$@ $(SRC_DIR)/$@.d
