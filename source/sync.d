@@ -96,6 +96,11 @@ bool syncArg(Mode mode, string filename)
     default:
         stderr.writeln("invalid sync mode");
     }
-    status = core.sys.posix.unistd.close(fd);
+
+    int ret = core.sys.posix.unistd.close(fd);
+    if (status == 0 && ret < 0)
+    {
+        status = ret;
+    }
     return status == 0;
 }
