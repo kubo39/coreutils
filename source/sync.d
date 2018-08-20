@@ -88,7 +88,7 @@ bool syncArg(Mode mode, string filename)
     switch (mode)
     {
     case Mode.DATA:
-        status = fdatasync(fd);
+        status = fileDataSync(fd);
         break;
     case Mode.FILE:
         status = fsync(fd);
@@ -103,4 +103,16 @@ bool syncArg(Mode mode, string filename)
         status = ret;
     }
     return status == 0;
+}
+
+int fileDataSync(int fd)
+{
+    version(OSX)
+    {
+        import core.sys.posix.unistd;
+        core.sys.posix.unistd.sync();
+        return 0;
+    }
+    else
+        return fdatasync(fd);
 }
