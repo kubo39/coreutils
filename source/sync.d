@@ -1,4 +1,5 @@
 import core.stdc.stdlib : exit;
+import core.sys.posix.unistd;
 import std.format : format;
 import std.getopt : getopt;
 import std.stdio;
@@ -67,7 +68,6 @@ Synchronize cached writes to persistent storage
 bool syncArg(Mode mode, string filename)
 {
     import core.sys.posix.fcntl;
-    import core.sys.posix.unistd;
     import std.file : exists;
     import std.string : toStringz;
 
@@ -109,7 +109,6 @@ int fileDataSync(int fd)
 {
     version(OSX)
     {
-        import core.sys.posix.unistd;
         core.sys.posix.unistd.sync();
         return 0;
     }
