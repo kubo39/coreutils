@@ -15,9 +15,12 @@ enum Mode
 
 void main(string[] args)
 {
-    bool data, versions;
+    bool data, filesystem, versions;
 
-    auto helpInformation = args.getopt("d|data", &data, "v|version", &versions);
+    auto helpInformation = args.getopt(
+        "d|data", &data,
+        "f|file-system", &filesystem,
+        "v|version", &versions);
 
     if (helpInformation.helpWanted)
     {
@@ -27,7 +30,8 @@ sync %s
 Usage: sync [OPTION] [FILE]...
 Synchronize cached writes to persistent storage
 
- -d, --data   sync only file data, no unneeded metadata
+ -d, --data         sync only file data, no unneeded metadata
+ -f, --file-system  sync the file systems that contains the files
   --help      display this help and exit.
   --version   output version information and exit.
 
@@ -42,6 +46,12 @@ Synchronize cached writes to persistent storage
 
     // default mode is sync.
     Mode mode = Mode.SYNC;
+
+    if (data && filesystem)
+    {
+        stderr.writeln("cannot specify both --data and --file-system");
+        exit(1);
+    }
 
     if (data && args.length < 2)
     {
