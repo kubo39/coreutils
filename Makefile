@@ -6,6 +6,7 @@ SRC_DIR = source
 TARGET_DIR = bin
 
 all: arch \
+	 cp \
 	false \
 	hostid \
 	logname \
@@ -21,6 +22,9 @@ all: arch \
 	whoami
 
 arch:
+	$(DC) -of=$(TARGET_DIR)/$@ $(SRC_DIR)/$@.d
+
+cp:
 	$(DC) -of=$(TARGET_DIR)/$@ $(SRC_DIR)/$@.d
 
 false:
