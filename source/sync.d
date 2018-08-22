@@ -6,11 +6,26 @@ import std.stdio;
 
 enum VERSION = "0.0.1";
 
+extern (C)
+{
+    version (linux)
+        int syncfs(int fd);
+    else
+    {
+        int syncfs(int _)
+        {
+            core.sys.posix.unistd.sync();
+            return 0;
+        }
+    }
+}
+
 enum Mode
 {
     SYNC,
     DATA,
     FILE,
+    FILE_SYSTEM,
 }
 
 void main(string[] args)
@@ -60,11 +75,12 @@ Synchronize cached writes to persistent storage
     }
     if (data)
         mode = Mode.DATA;
+    if (filesystem)
+        mode = Mode.FILE_SYSTEM;
 
     int status = 0;
     if (mode == Mode.SYNC)
     {
-        import core.sys.posix.unistd;
         core.sys.posix.unistd.sync();
     }
     else
@@ -102,6 +118,9 @@ bool syncArg(Mode mode, string filename)
         break;
     case Mode.FILE:
         status = fsync(fd);
+        break;
+    case Mode.FILE_SYSTEM:
+        status = syncfs(fd);
         break;
     default:
         stderr.writeln("invalid sync mode");
