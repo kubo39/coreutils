@@ -14,6 +14,7 @@ all: arch \
 	nproc \
 	pwd \
 	sleep \
+	sync \
 	tee \
 	timeout \
 	true \
