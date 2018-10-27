@@ -28,6 +28,7 @@ void main(string[] args)
         machine, versions;
     auto helpInformation = args.getopt(
         std.getopt.config.bundling,
+        std.getopt.config.caseSensitive,
         "a|all", &all,
         "s|kernel-name", &kernelName,
         "n|node-name", &nodeName,
