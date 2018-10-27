@@ -15,10 +15,10 @@ final class Settings
     this(bool kernelName, bool nodeName,
          bool kernelRelease, bool machine)
     {
-    this.kernelName = kernelName;
-    this.nodeName = nodeName;
-    this.kernelRelease = kernelRelease;
-    this.machine = machine;
+        this.kernelName = kernelName;
+        this.nodeName = nodeName;
+        this.kernelRelease = kernelRelease;
+        this.machine = machine;
     }
 }
 
@@ -35,6 +35,7 @@ void main(string[] args)
         "r|kernel-release", &kernelRelease,
         "m|machine", &machine,
         "version", &versions);
+
     if (helpInformation.helpWanted)
     {
         writeln(`
