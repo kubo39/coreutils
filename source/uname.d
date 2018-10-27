@@ -27,6 +27,7 @@ void main(string[] args)
     bool all, kernelName, nodeName, kernelRelease,
         machine, versions;
     auto helpInformation = args.getopt(
+        std.getopt.config.bundling,
         "a|all", &all,
         "s|kernel-name", &kernelName,
         "n|node-name", &nodeName,
