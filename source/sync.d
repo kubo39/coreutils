@@ -1,7 +1,7 @@
 import core.stdc.stdlib : exit;
 import core.sys.posix.unistd;
 import std.format : format;
-import std.getopt : getopt;
+import std.getopt;
 import std.stdio;
 
 enum VERSION = "0.0.1";
@@ -32,10 +32,13 @@ void main(string[] args)
 {
     bool data, filesystem, versions;
 
+    // dfmt off
     auto helpInformation = args.getopt(
+        std.getopt.config.caseSensitive,
         "d|data", &data,
         "f|file-system", &filesystem,
         "v|version", &versions);
+    // dfmt on
 
     if (helpInformation.helpWanted)
     {

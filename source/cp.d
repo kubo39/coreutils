@@ -11,6 +11,7 @@ void main(string[] args)
     bool versions;
 
     auto helpInformation = args.getopt(
+        std.getopt.config.caseSensitive,
         "v|version", &versions
         );
 

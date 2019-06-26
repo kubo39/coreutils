@@ -1,6 +1,6 @@
-import core.stdc.stdlib : exit;
+import core.stdc.stdlib;
 
 void main()
 {
-    exit(0);
+    exit(EXIT_SUCCESS);
 }

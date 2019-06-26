@@ -19,7 +19,12 @@ void main(string[] args)
 {
     bool versions, foreground;
 
-    auto helpInformation = args.getopt("foreground", &foreground, "v|version", &versions);
+    // dfmt off
+    auto helpInformation = args.getopt(
+        std.getopt.config.caseSensitive,
+        "foreground", &foreground,
+        "v|version", &versions);
+    // dfmt on
 
     if (helpInformation.helpWanted)
     {

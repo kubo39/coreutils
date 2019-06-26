@@ -24,11 +24,17 @@ final class Settings
 void main(string[] args)
 {
     bool showBytes, showChars, showWords, showLines, versions;
-    auto helpInformation = args.getopt("c|bytes", &showBytes,
-                                       "m|chars", &showChars,
-                                       "w|words", &showWords,
-                                       "l|lines", &showLines,
-                                       "v|version", &versions);
+
+    // dfmt off
+    auto helpInformation = args.getopt(
+        std.getopt.config.caseSensitive,
+        "c|bytes", &showBytes,
+        "m|chars", &showChars,
+        "w|words", &showWords,
+        "l|lines", &showLines,
+        "v|version", &versions);
+    // dfmt on
+
     if (helpInformation.helpWanted)
     {
         writeln(`

@@ -21,7 +21,13 @@ void main(string[] args)
     bool versions, all;
     ulong ignore;
 
-    auto helpInformation = args.getopt("v|version", &versions, "ignore", &ignore, "all", &all);
+    // dfmt off
+    auto helpInformation = args.getopt(
+        std.getopt.config.caseSensitive,
+        "v|version", &versions,
+        "ignore", &ignore,
+        "all", &all);
+    // dfmt on
 
     if (helpInformation.helpWanted)
     {

@@ -26,6 +26,8 @@ void main(string[] args)
 {
     bool all, kernelName, nodeName, kernelRelease,
         machine, versions;
+
+    // dfmt off
     auto helpInformation = args.getopt(
         std.getopt.config.bundling,
         std.getopt.config.caseSensitive,
@@ -35,6 +37,7 @@ void main(string[] args)
         "r|kernel-release", &kernelRelease,
         "m|machine", &machine,
         "version", &versions);
+    // dfmt on
 
     if (helpInformation.helpWanted)
     {

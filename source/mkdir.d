@@ -10,11 +10,16 @@ void main(string[] args)
 {
     bool parents, versions, verbose;
     string mode = "755";
-    auto helpInformation = args.getopt(std.getopt.config.caseSensitive,
-                                       "V|version", &versions,
-                                       "p|parents", &parents,
-                                       "m|mode", &mode,
-                                       "v|verbose", &verbose,);
+
+    // dfmt off
+    auto helpInformation = args.getopt(
+        std.getopt.config.caseSensitive,
+        "V|version", &versions,
+        "p|parents", &parents,
+        "m|mode", &mode,
+        "v|verbose", &verbose);
+    // dfmt on
+
     ushort attr = parse!ushort(mode, 8);
 
     if (helpInformation.helpWanted)

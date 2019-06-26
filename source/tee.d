@@ -8,9 +8,14 @@ enum VERSION = "0.0.1";
 void main(string[] args)
 {
     bool append, ignore_interrupts, versions;
-    auto helpInformation = args.getopt("a|append", &append,
-                                       "i|ignore_interrupts", &ignore_interrupts,
-                                       "v|version", &versions);
+
+    // dfmt off
+    auto helpInformation = args.getopt(
+        std.getopt.config.caseSensitive,
+        "a|append", &append,
+        "i|ignore_interrupts", &ignore_interrupts,
+        "v|version", &versions);
+    // dfmt on
 
     if (helpInformation.helpWanted)
     {

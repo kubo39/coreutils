@@ -13,7 +13,11 @@ void main(string[] args)
 {
     bool versions;
 
-    auto helpInformation = args.getopt("v|version", &versions);
+    // dfmt off
+    auto helpInformation = args.getopt(
+        std.getopt.config.caseSensitive,
+        "v|version", &versions);
+    // dfmt on
 
     if (helpInformation.helpWanted)
     {
