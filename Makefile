@@ -23,7 +23,7 @@ bin/wc:
 bin/whoami:
 
 bin/%: source/%.d
-	mkdir -p bin
+	@mkdir -p bin
 	$(DC) -of=$@ $<
 
 clean:
