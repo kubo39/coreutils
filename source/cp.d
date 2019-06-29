@@ -3,16 +3,18 @@ import std.file;
 import std.format : format;
 import std.getopt;
 import std.stdio : writeln, stderr;
+import std.typecons;
 
 enum VERSION = "0.0.1";
 
 void main(string[] args)
 {
-    bool versions;
+    bool versions, preserve;
 
     auto helpInformation = args.getopt(
         std.getopt.config.caseSensitive,
-        "v|version", &versions
+        "v|version", &versions,
+        "p|preserve", &preserve,
         );
 
     if (helpInformation.helpWanted)
@@ -55,7 +57,7 @@ Copy files.
         {
             stderr.writeln("cp: omitting directory '%s'", src);
         }
-        status = copySourceToDest(src, dest);
+        status = copySourceToDest(src, dest, preserve);
     }
     else
     {
@@ -79,18 +81,21 @@ Copy files.
             exit(1);
         }
 
-        status = copyMultipleSourceToDir(srcs, dir);
+        status = copyMultipleSourceToDir(srcs, dir, preserve);
         if (notSourceGiven)
             status = 1;
     }
     exit(status);
 }
 
-int copySourceToDest(string src, string dest)
+int copySourceToDest(string src, string dest, bool preserve)
 {
+    const preserveAttributes = preserve
+        ? Yes.preserveAttributes
+        : No.preserveAttributes;
     try
     {
-        std.file.copy(src, dest);
+        std.file.copy(src, dest, preserveAttributes);
         return 0;
     }
     catch (FileException e)
@@ -99,12 +104,15 @@ int copySourceToDest(string src, string dest)
     }
 }
 
-int copyMultipleSourceToDir(string[] srcs, string dir)
+int copyMultipleSourceToDir(string[] srcs, string dir, bool preserve)
 {
+    const preserveAttributes = preserve
+        ? Yes.preserveAttributes
+        : No.preserveAttributes;
     try
     {
         foreach (src; srcs)
-            std.file.copy(src, dir);
+            std.file.copy(src, dir, preserveAttributes);
         return 0;
     }
     catch (FileException e)
