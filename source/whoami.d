@@ -14,15 +14,14 @@ void main(string[] args)
     bool versions;
 
     // dfmt off
-    auto helpInformation = args.getopt(
+    const helpInformation = args.getopt(
         std.getopt.config.caseSensitive,
         "v|version", &versions);
     // dfmt on
 
     if (helpInformation.helpWanted)
     {
-        writeln(`
-whoami %s
+        writeln(`whoami %s
 
 Usage: whoami [OPTIONS]
 
@@ -30,7 +29,6 @@ print effective userid
 
   --help       display this help and exit.
   --version  output version information and exit.
-
 `.format(VERSION));
         exit(0);
     }

@@ -10,15 +10,14 @@ void main(string[] args)
     bool versions;
 
     // dfmt off
-    auto helpInformation = args.getopt(
+    const helpInformation = args.getopt(
         std.getopt.config.caseSensitive,
         "v|version", &versions);
     // dfmt on
 
     if (helpInformation.helpWanted)
     {
-        writeln(`
-hostid %s
+        writeln(`hostid %s
 
 Usage: hostid [OPTIONS]...
 
@@ -40,7 +39,7 @@ Print the numerical identifier for the current host.
     exit(0);
 }
 
-void hostid()
+void hostid() @safe
 {
     import core.sys.posix.unistd : gethostid;
     import std.stdio : writefln;

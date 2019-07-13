@@ -24,15 +24,14 @@ void main(string[] args)
     bool versions;
 
     // dfmt off
-    auto helpInformation = args.getopt(
+    const helpInformation = args.getopt(
         std.getopt.config.caseSensitive,
         "v|version", &versions);
     // dfmt on
 
     if (helpInformation.helpWanted)
     {
-        writeln(`
-logname %s
+        writeln(`logname %s
 
 Usage: logname [OPTION]
 Print the name of the current user.

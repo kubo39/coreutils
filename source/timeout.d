@@ -20,7 +20,7 @@ void main(string[] args)
     bool versions, foreground;
 
     // dfmt off
-    auto helpInformation = args.getopt(
+    const helpInformation = args.getopt(
         std.getopt.config.caseSensitive,
         "foreground", &foreground,
         "v|version", &versions);
@@ -66,9 +66,7 @@ int timeout(Duration duration, string[] cmd, bool foreground)
     int status;
 
     if (!foreground)
-    {
         setpgid(0, 0);
-    }
 
     auto pid = spawnProcess(cmd);
 

@@ -11,15 +11,14 @@ void main(string[] args)
     bool versions;
 
     // dfmt off
-    auto helpInformation = args.getopt(
+    const helpInformation = args.getopt(
         std.getopt.config.caseSensitive,
         "v|version", &versions);
     // dfmt on
 
     if (helpInformation.helpWanted)
     {
-        writeln(`
-pwd %s
+        writeln(`pwd %s
 
 Usage: pwd [OPTION]
 

@@ -33,7 +33,7 @@ void main(string[] args)
     bool data, filesystem, versions;
 
     // dfmt off
-    auto helpInformation = args.getopt(
+    const helpInformation = args.getopt(
         std.getopt.config.caseSensitive,
         "d|data", &data,
         "f|file-system", &filesystem,
@@ -42,8 +42,7 @@ void main(string[] args)
 
     if (helpInformation.helpWanted)
     {
-        writeln(`
-sync %s
+        writeln(`sync %s
 
 Usage: sync [OPTION] [FILE]...
 Synchronize cached writes to persistent storage
@@ -52,7 +51,6 @@ Synchronize cached writes to persistent storage
  -f, --file-system  sync the file systems that contains the files
   --help      display this help and exit.
   --version   output version information and exit.
-
 `.format(VERSION));
         exit(0);
     }
@@ -63,7 +61,7 @@ Synchronize cached writes to persistent storage
     }
 
     // default mode is sync.
-    Mode mode = Mode.SYNC;
+    auto mode = Mode.SYNC;
 
     if (data && filesystem)
     {
@@ -83,14 +81,10 @@ Synchronize cached writes to persistent storage
 
     int status = 0;
     if (mode == Mode.SYNC)
-    {
         core.sys.posix.unistd.sync();
-    }
     else
-    {
         foreach (filename; args[1 .. $])
             status &= syncArg(mode, filename);
-    }
     exit(status);
 }
 
@@ -131,13 +125,11 @@ bool syncArg(Mode mode, string filename)
 
     int ret = core.sys.posix.unistd.close(fd);
     if (status == 0 && ret < 0)
-    {
         status = ret;
-    }
     return status == 0;
 }
 
-int fileDataSync(int fd)
+int fileDataSync(int fd) @nogc nothrow
 {
     version(OSX)
     {

@@ -1,6 +1,6 @@
 import core.stdc.stdlib;
 
-void main()
+void main() @nogc nothrow
 {
     exit(EXIT_FAILURE);
 }

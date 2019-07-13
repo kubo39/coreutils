@@ -22,7 +22,7 @@ void main(string[] args)
     ulong ignore;
 
     // dfmt off
-    auto helpInformation = args.getopt(
+    const helpInformation = args.getopt(
         std.getopt.config.caseSensitive,
         "v|version", &versions,
         "ignore", &ignore,
@@ -31,8 +31,7 @@ void main(string[] args)
 
     if (helpInformation.helpWanted)
     {
-        writeln(`
-nproc %s
+        writeln(`nproc %s
 
 Usage: nproc [OPTIONS]...
 
@@ -42,7 +41,6 @@ Print the number of cores available to the current process.
   --ignore=N  if possible, exclude N processing units
   --help      display this help and exit.
   --version   output version information and exit.
-
 `.format(VERSION));
         exit(0);
     }
@@ -54,11 +52,9 @@ Print the number of cores available to the current process.
 
     if (all)
     {
-        auto n = environment.get("OMP_NUM_THREADS");
+        const n = environment.get("OMP_NUM_THREADS");
         if (n !is null)
-        {
             ignore += n.to!ulong;
-        }
     }
 
     auto cores = getCPUs(all);
@@ -72,7 +68,7 @@ Print the number of cores available to the current process.
     exit(0);
 }
 
-ulong getCPUs(bool all)
+ulong getCPUs(bool all) @nogc nothrow
 {
     ulong cores = 0;
 
@@ -86,7 +82,7 @@ ulong getCPUs(bool all)
     {
         version (linux)
         {
-            cpu_set_t cpu;
+            cpu_set_t cpu = void;
             if (sched_getaffinity(0, cpu.sizeof, &cpu) == 0)
                 foreach (i; cpu.__bits[0 .. (cpu.sizeof / ulong.sizeof)])
                     cores += popcnt(i);

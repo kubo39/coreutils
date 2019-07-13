@@ -11,16 +11,17 @@ void main(string[] args)
 {
     bool versions, preserve;
 
-    auto helpInformation = args.getopt(
+    // dfmt off
+    const helpInformation = args.getopt(
         std.getopt.config.caseSensitive,
         "v|version", &versions,
         "p|preserve", &preserve,
         );
+    // dfmt on
 
     if (helpInformation.helpWanted)
     {
-        writeln(`
-cp %s
+        writeln(`cp %s
 
 Usage: cp [OPTION]... SOURCE DEST
 Copy files.
@@ -61,8 +62,8 @@ Copy files.
     }
     else
     {
-        string[] srcs = args[1..$-1];
-        string dir = args[$-1];
+        string[] srcs = args[1 .. $ - 1];
+        string dir = args[$ - 1];
 
         bool notSourceGiven = false;
         foreach (src; srcs)
@@ -88,7 +89,7 @@ Copy files.
     exit(status);
 }
 
-int copySourceToDest(string src, string dest, bool preserve)
+int copySourceToDest(string src, string dest, bool preserve) @safe
 {
     const preserveAttributes = preserve
         ? Yes.preserveAttributes
@@ -98,13 +99,10 @@ int copySourceToDest(string src, string dest, bool preserve)
         std.file.copy(src, dest, preserveAttributes);
         return 0;
     }
-    catch (FileException e)
-    {
-        return 1;
-    }
+    catch (FileException e) return 1;
 }
 
-int copyMultipleSourceToDir(string[] srcs, string dir, bool preserve)
+int copyMultipleSourceToDir(string[] srcs, string dir, bool preserve) @safe
 {
     const preserveAttributes = preserve
         ? Yes.preserveAttributes
@@ -115,8 +113,5 @@ int copyMultipleSourceToDir(string[] srcs, string dir, bool preserve)
             std.file.copy(src, dir, preserveAttributes);
         return 0;
     }
-    catch (FileException e)
-    {
-        return 1;
-    }
+    catch (FileException e) return 1;
 }

@@ -28,7 +28,7 @@ void main(string[] args)
         machine, versions;
 
     // dfmt off
-    auto helpInformation = args.getopt(
+    const helpInformation = args.getopt(
         std.getopt.config.bundling,
         std.getopt.config.caseSensitive,
         "a|all", &all,
@@ -41,8 +41,7 @@ void main(string[] args)
 
     if (helpInformation.helpWanted)
     {
-        writeln(`
-uname %s
+        writeln(`uname %s
 
 Usage: uname [OPTION]... [FILE]...
 Print system information.  With no OPTION, same as -s.

@@ -11,15 +11,14 @@ void main(string[] args)
     bool versions;
 
     // dfmt off
-    auto helpInformation = args.getopt(
+    const helpInformation = args.getopt(
         std.getopt.config.caseSensitive,
         "v|version", &versions);
     // dfmt on
 
     if (helpInformation.helpWanted)
     {
-        writeln(`
-arch %s
+        writeln(`arch %s
 
 Usage: arch [OPTION]...
 Print machine architecture.
@@ -41,7 +40,7 @@ Print machine architecture.
         exit(1);
     }
 
-    utsname utsname;
+    utsname utsname = void;
     if (uname(&utsname) == -1)
     {
         import std.exception : errnoEnforce;

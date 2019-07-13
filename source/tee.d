@@ -10,7 +10,7 @@ void main(string[] args)
     bool append, ignore_interrupts, versions;
 
     // dfmt off
-    auto helpInformation = args.getopt(
+    const helpInformation = args.getopt(
         std.getopt.config.caseSensitive,
         "a|append", &append,
         "i|ignore_interrupts", &ignore_interrupts,
@@ -19,8 +19,7 @@ void main(string[] args)
 
     if (helpInformation.helpWanted)
     {
-        writeln(`
-tee %s
+        writeln(`tee %s
 
 Usage: tee [OPTION]... [FILE]...
 Copy standard input to each FILE, and also to standard output.
@@ -59,7 +58,7 @@ int tee(string[] filenames, bool append, bool ignore_interrupts)
         .map!(filename => File(filename, append ? "a" : "w"))
         .array;
 
-    immutable BUFSIZE = 4096;
+    enum BUFSIZE = 4096;
     auto buf = malloc(BUFSIZE);
     if (!buf)
     {

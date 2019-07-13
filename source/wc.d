@@ -12,7 +12,7 @@ final class Settings
     bool showWords;
     bool showLines;
 
-    this(bool showBytes, bool showChars, bool showWords, bool showLines)
+    this(bool showBytes, bool showChars, bool showWords, bool showLines) @nogc nothrow @safe
     {
         this.showBytes = showBytes;
         this.showChars = showChars;
@@ -26,7 +26,7 @@ void main(string[] args)
     bool showBytes, showChars, showWords, showLines, versions;
 
     // dfmt off
-    auto helpInformation = args.getopt(
+    const helpInformation = args.getopt(
         std.getopt.config.caseSensitive,
         "c|bytes", &showBytes,
         "m|chars", &showChars,
@@ -37,8 +37,7 @@ void main(string[] args)
 
     if (helpInformation.helpWanted)
     {
-        writeln(`
-wc %s
+        writeln(`wc %s
 
 Usage: wc [OPTION]... [FILE]...
 

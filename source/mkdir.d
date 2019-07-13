@@ -12,7 +12,7 @@ void main(string[] args)
     string mode = "755";
 
     // dfmt off
-    auto helpInformation = args.getopt(
+    const helpInformation = args.getopt(
         std.getopt.config.caseSensitive,
         "V|version", &versions,
         "p|parents", &parents,
@@ -20,12 +20,11 @@ void main(string[] args)
         "v|verbose", &verbose);
     // dfmt on
 
-    ushort attr = parse!ushort(mode, 8);
+    immutable attr = parse!ushort(mode, 8);
 
     if (helpInformation.helpWanted)
     {
-        writeln(`
-mkdir %s
+        writeln(`mkdir %s
 
 Usage: mkdir [OPTIONS]... DIRECTORY...
 
@@ -51,13 +50,13 @@ Create the DIRECTORY(ies), if they do not already exist.
         stderr.writeln("for help, try mkdir --help");
         exit(1);
     }
-    int status;
+    int status = 0;
     foreach (path; args[1 .. $])
         status |= mkdir(path, parents, attr, verbose);
     exit(status);
 }
 
-int mkdir(string path, bool recurse, ushort mode, bool verbose)
+int mkdir(string path, bool recurse, ushort mode, bool verbose) @safe
 {
     import std.file;
 
@@ -73,8 +72,5 @@ int mkdir(string path, bool recurse, ushort mode, bool verbose)
             writefln("mkdir: created directory '%s'", path);
         return 0;
     }
-    catch (FileException e)
-    {
-        return 1;
-    }
+    catch (FileException e) return 1;
 }
